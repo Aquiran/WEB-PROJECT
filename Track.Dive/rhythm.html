@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ko"> <!-- 한국어 컨텐츠이므로 "ko"로 변경 -->
+
+<head>
+    <!-- (Head 내용은 그대로 유지) -->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="rhythm.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+    <script src="rhythm.js" defer></script>
+    <title>Track:Dive</title>
+</head>
+
+<body>
+    <main class="game-interface">
+        <section class="hud">
+            <div class="hp-section">
+                <span id="hptxt">HP</span>
+                <div class="hp-bar-container">
+                    <div id="hpbar"></div>
+                </div>
+            </div>
+            <div class="score-section">
+                <div id="combo">COMBO : 0</div>
+                <div id="max">Max COMBO : 0</div>
+                <div id="misscombo">MISS : 0</div>
+            </div>
+        </section>
+        <section class="track-area">
+            <div class="track">
+                <div id="trackD" class="note-lane"></div>
+                <div id="trackF" class="note-lane"></div>
+                <div id="trackJ" class="note-lane"></div>
+                <div id="trackK" class="note-lane"></div>
+            </div>
+            <div class="judgement-line-container">
+                <div class="jdline"></div>
+                <div class="key-display">
+                    <div id="trackBtnD">D</div>
+                    <div id="trackBtnF">F</div>
+                    <div id="trackBtnJ">J</div>
+                    <div id="trackBtnK">K</div>
+                </div>
+            </div>
+        </section>
+        <section class="game-controls">
+            <button id="start">START</button>
+            <div id="clear" class="hidden">C L E A R</div>
+        </section>
+    </main>
+</body>
+
+</html>
