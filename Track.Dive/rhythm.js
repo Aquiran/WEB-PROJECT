@@ -47,7 +47,9 @@ function start() {
     /* Clear */
     setTimeout(() => {
         document.getElementById("clear").style.display = "block"
-        document.getElementById("clear").style.opacity = "1"
+        setTimeout(() => {
+            document.getElementById("clear").style.opacity = "1"
+        }, 10);
     }, 4000);
 
     /* Time check */
