@@ -20,6 +20,7 @@ document.getElementById('start').addEventListener("click", () => {
 /* Track Input style */
 window.addEventListener('keyup', e => {
     let track = e.key.toUpperCase();
+    console.log(track);
     if (document.getElementById(`trackBtn${track}`)) {
         document.getElementById(`trackBtn${track}`).style.backgroundColor = 'rgba(155, 220, 248, 0.5)';
     }
@@ -69,18 +70,18 @@ function start() {
                 setTimeout(() => {
                     document.getElementsByClassName(`t${i}`)[0].style.display = "none";
 
-                    /* Hud Event */
+                    /* Hud Event (miss 발생) */
                     setTimeout(() => {
                         if (!miss) {
                             combo = 0;
                             missnum = missnum + 1;
                             hpnum = hpnum - 20;
                             document.getElementById('combo').innerHTML = `COMBO: ${combo}`;
-                            document.getElementById('hpbar1').style.width = `${hpnum}px`;
-                            document.getElementById(`track${track}`).style.backgroundColor = 'red';
+                            document.getElementById('hpbar').style.width = `${hpnum}px`;
+                            document.getElementById(`track${track}`).style.backgroundColor = 'rgba(255, 0, 0, 0.7)';
                             setTimeout(() => {
-                                document.getElementById(`track${track}`).style.backgroundColor = 'rgba(155, 220, 248, 0.5)';
-                            }, 100);
+                                document.getElementById(`track${track}`).style.backgroundColor = 'rgba(155, 220, 248, 0.3)';
+                            }, 10);
                         }
                         document.getElementsByClassName(`t${i}`)[0]?.remove();
                     }, 100);
@@ -91,7 +92,45 @@ function start() {
 }
 
 function isJudge(track) {
-    /* 구현 예정 */
+
+    /* Note Judge */
+    let nowTime = Math.floor(new Date().getTime() / 100);
+    for (let i = 0; i < song.note.length; i++) {
+        if (song.note[i].track === track) {
+
+            /* key input과 note의 시간 비교를 통한 Judge */
+            if (nowTime + 4 >= startTime + song.note[i].time + 10 && startTime + song.note[i].time + 10 >= nowTime && !song.note[i].played) {
+                miss = true;
+                if (nowTime + 2 >= startTime + song.note[i].time + 10 && startTime + song.note[i].time + 10 >= nowTime) {
+                    combo += 1;
+                    song.note[i].played = true;
+                    document.getElementById('combo').innerHTML = `COMBO: ${combo}`;
+                    document.getElementById(`track${track}`).style.backgroundImage = 'linear-gradient(to bottom, rgba(155, 220, 248, 0),rgba(155, 220, 248, 1))';
+                    document.getElementsByClassName(`t${i}`)[0]?.remove();
+                    setTimeout(() => {
+                        document.getElementById(`track${track}`).style.backgroundImage = '';
+                        setTimeout(() => {
+                            miss = false;
+                        }, 500);
+                    }, 10);
+                } 
+
+                /* Hud Event (key input이 없을 때) */
+                else {
+                    combo = 0;
+                    missnum += 1;
+                    hpnum = hpnum - 20
+                    document.getElementById('hpbar').style.width = `${hpnum}px`
+                    document.getElementById('combo').innerHTML = `COMBO: ${combo}`;
+                    document.getElementById(`track${track}`).style.backgroundColor = 'rgba(228, 96, 96, 0.7)';
+                    document.getElementsByClassName(`t${i}`)[0].remove();
+                    setTimeout(() => {
+                        document.getElementById(`track${track}`).style.backgroundColor = 'rgba(155, 220, 248, 0.3)';
+                    }, 100);
+                }
+            }
+        }
+    }
 }
 
 /* GameOver Check */
@@ -100,6 +139,23 @@ setInterval(() => {
         window.location.href = "end.html"
 }, 1)
 
+
+/* Max Combo Check */
+setInterval(() => {
+    if (combo > maximum) {
+        maximum += 1;
+        document.getElementById("max").innerHTML = `Max COMBO : ${maximum}`;
+    }
+}, 1);
+
+/* Miss Count Check */
+setInterval(() => {
+    document.getElementById("misscombo").innerHTML = `MISS : ${missnum}`;
+}, 1);
+
+
+
+/* Clear Button */
 document.getElementById('clear').addEventListener("click", () => {
     window.location.href = "index.html"
 })
