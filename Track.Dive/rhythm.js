@@ -1,13 +1,48 @@
 var startTime = 0;
 var combo = 0;
 let miss = false;
+let level = 2;
+let drop = 10;
+let clearConstant = 1000;
+let setting = false;
 let hpnum = 400;
 var maximum = 0;
 var missnum = 0;
 
+/* Level Setting */
+easy = document.getElementById('easy');
+normal = document.getElementById('NORMAL');
+hard = document.getElementById('HARD');
+easy.addEventListener('click', () => {
+    level = 4;
+    drop = 20;
+    clearConstant = 2000;
+    setting = true;
+    document.documentElement.style.setProperty('--note-speed', `2s`);
+    document.querySelector('.level').style.display = 'none';
+});
+normal.addEventListener('click', () => {
+    level = 2;
+    drop = 10;
+    clearConstant = 1000;
+    setting = true;
+    document.documentElement.style.setProperty('--note-speed', `1s`);
+    document.querySelector('.level').style.display = 'none';
+});
+hard.addEventListener('click', () => {
+    level = 1;
+    drop = 5;
+    clearConstant = 500;
+    setting = true;
+    document.documentElement.style.setProperty('--note-speed', `0.5s`);
+    document.querySelector('.level').style.display = 'none';
+});
+
+
+
 /* Start Game */
 document.addEventListener('keyup', event => {
-    if (event.code === 'Space' ) {
+    if (event.code === 'Space' && setting == true) {
       start()
     }
 })
@@ -51,7 +86,7 @@ function start() {
         setTimeout(() => {
             document.getElementById("clear").style.opacity = "1"
         }, 10);
-    }, 4000);
+    }, 6000 + clearConstant);
 
     /* Time check */
     startTime = Math.floor(new Date().getTime() / 100);
@@ -85,7 +120,7 @@ function start() {
                         }
                         document.getElementsByClassName(`t${i}`)[0]?.remove();
                     }, 100);
-                }, 1000);
+                }, drop * 100);
             }
         }
     }, 1);
@@ -99,9 +134,9 @@ function isJudge(track) {
         if (song.note[i].track === track) {
 
             /* key input과 note의 시간 비교를 통한 Judge */
-            if (nowTime + 4 >= startTime + song.note[i].time + 10 && startTime + song.note[i].time + 10 >= nowTime && !song.note[i].played) {
+            if (nowTime + level * 2 >= startTime + song.note[i].time + drop && startTime + song.note[i].time + drop >= nowTime && !song.note[i].played) {
                 miss = true;
-                if (nowTime + 2 >= startTime + song.note[i].time + 10 && startTime + song.note[i].time + 10 >= nowTime) {
+                if (nowTime + level >= startTime + song.note[i].time + drop && startTime + song.note[i].time + drop >= nowTime) {
                     combo += 1;
                     song.note[i].played = true;
                     document.getElementById('combo').innerHTML = `COMBO: ${combo}`;

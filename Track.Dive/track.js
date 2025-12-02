@@ -11,6 +11,16 @@ let song = {
         {played : false , noted: false, track: 'D', time: 20},
         {played : false , noted: false, track: 'K', time: 25},
         {played : false , noted: false, track: 'F', time: 30},
+        {played : false , noted: false, track: 'D', time: 33},
+        {played : false , noted: false, track: 'J', time: 36},
+        {played : false , noted: false, track: 'K', time: 39},
+        {played : false , noted: false, track: 'D', time: 42},
+        {played : false , noted: false, track: 'F', time: 45},
+        {played : false , noted: false, track: 'J', time: 48},
+        {played : false , noted: false, track: 'K', time: 51},
+        {played : false , noted: false, track: 'J', time: 54},
+        {played : false , noted: false, track: 'F', time: 57},
+        {played : false , noted: false, track: 'D', time: 60},
     ]
 }
 
