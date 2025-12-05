@@ -6,6 +6,7 @@ let drop = 10;
 let clearConstant = 1000;
 let setting = false;
 let hpnum = 400;
+let damage = 20;
 var maximum = 0;
 var missnum = 0;
 
@@ -14,27 +15,24 @@ easy = document.getElementById('easy');
 normal = document.getElementById('NORMAL');
 hard = document.getElementById('HARD');
 easy.addEventListener('click', () => {
-    level = 4;
-    drop = 20;
+    level = 2.2;
     clearConstant = 2000;
+    damage = 10;
     setting = true;
-    document.documentElement.style.setProperty('--note-speed', `2s`);
     document.querySelector('.level').style.display = 'none';
 });
 normal.addEventListener('click', () => {
     level = 2;
-    drop = 10;
     clearConstant = 1000;
     setting = true;
-    document.documentElement.style.setProperty('--note-speed', `1s`);
     document.querySelector('.level').style.display = 'none';
 });
 hard.addEventListener('click', () => {
-    level = 1;
-    drop = 5;
+    level = 2;
     clearConstant = 500;
+    damage = 40;
     setting = true;
-    document.documentElement.style.setProperty('--note-speed', `0.5s`);
+    document.documentElement.style.setProperty('--note-speed', '0.9s');
     document.querySelector('.level').style.display = 'none';
 });
 
@@ -73,12 +71,12 @@ window.addEventListener('keydown', e => {
 /* start function */ 
 function start() {
     document.getElementById('start').style.display = 'none';
-
-    /* audio */
+    /* audio play */
+    var audio = new Audio('audio.mp3');
+    audio.play();
     setTimeout(() => {
-        var audio = new Audio('');
-        audio.play();
-    }, 1300);
+        audio.pause();
+    }, 78000);
 
     /* Clear */
     setTimeout(() => {
@@ -86,7 +84,7 @@ function start() {
         setTimeout(() => {
             document.getElementById("clear").style.opacity = "1"
         }, 10);
-    }, 6000 + clearConstant);
+    }, 78000);
 
     /* Time check */
     startTime = Math.floor(new Date().getTime() / 100);
@@ -110,7 +108,7 @@ function start() {
                         if (!miss) {
                             combo = 0;
                             missnum = missnum + 1;
-                            hpnum = hpnum - 20;
+                            hpnum = hpnum - damage;
                             document.getElementById('combo').innerHTML = `COMBO: ${combo}`;
                             document.getElementById('hpbar').style.width = `${hpnum}px`;
                             document.getElementById(`track${track}`).style.backgroundColor = 'rgba(255, 0, 0, 0.7)';
@@ -154,7 +152,7 @@ function isJudge(track) {
                 else {
                     combo = 0;
                     missnum += 1;
-                    hpnum = hpnum - 20
+                    hpnum = hpnum - damage;
                     document.getElementById('hpbar').style.width = `${hpnum}px`
                     document.getElementById('combo').innerHTML = `COMBO: ${combo}`;
                     document.getElementById(`track${track}`).style.backgroundColor = 'rgba(228, 96, 96, 0.7)';
