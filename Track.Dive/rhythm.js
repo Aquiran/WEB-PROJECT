@@ -28,11 +28,11 @@ normal.addEventListener('click', () => {
     document.querySelector('.level').style.display = 'none';
 });
 hard.addEventListener('click', () => {
-    level = 2;
+    level = 3;
     clearConstant = 500;
     damage = 40;
     setting = true;
-    document.documentElement.style.setProperty('--note-speed', '0.9s');
+    document.documentElement.style.setProperty('--note-speed', '0.8s');
     document.querySelector('.level').style.display = 'none';
 });
 
